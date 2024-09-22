@@ -1,5 +1,7 @@
 # React
 
+> Testing React components, API
+
 Uses [TanStack Start](https://tanstack.com/start/latest).
 
 ## Setup
