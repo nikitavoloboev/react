@@ -9,18 +9,24 @@
     "start": "vinxi start"
   },
   "dependencies": {
+    "@tanstack/react-form": "^0.33.0",
     "@tanstack/react-router": "^1.58.3",
     "@tanstack/router-devtools": "^1.58.3",
     "@tanstack/start": "^1.58.5",
+    "@ton/core": "^0.58.1",
+    "@ton/ton": "^15.0.0",
     "@tonconnect/ui-react": "^2.0.9",
+    "lucide-react": "^0.445.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "redaxios": "^0.5.1",
+    "ronin": "^4.3.1",
     "tailwind-merge": "^2.5.2",
     "vinxi": "0.4.3",
     "vite-plugin-node-polyfills": "^0.22.0"
   },
   "devDependencies": {
+    "@ronin/drophunt": "^0.0.0-3452215958202",
     "@types/node": "^22.5.4",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.21",

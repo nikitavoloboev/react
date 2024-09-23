@@ -8,11 +8,12 @@ export default defineConfig({
       tsConfigPaths({
         projects: ["./tsconfig.json"],
       }),
-      nodePolyfills({
-        globals: {
-          Buffer: true,
-        },
-      }),
+      // TODO: breaks https://discord.com/channels/719702312431386674/1287699666598760509
+      // nodePolyfills({
+      //   globals: {
+      //     Buffer: true,
+      //   },
+      // }),
     ],
   },
 })
