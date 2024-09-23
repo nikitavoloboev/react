@@ -9,11 +9,11 @@ export default defineConfig({
         projects: ["./tsconfig.json"],
       }),
       // TODO: breaks https://discord.com/channels/719702312431386674/1287699666598760509
-      // nodePolyfills({
-      //   globals: {
-      //     Buffer: true,
-      //   },
-      // }),
+      nodePolyfills({
+        globals: {
+          Buffer: true,
+        },
+      }),
     ],
   },
 })
