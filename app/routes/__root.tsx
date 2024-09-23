@@ -12,6 +12,7 @@ import { NotFound } from "~/components/NotFound"
 // @ts-expect-error
 import appCss from "~/styles/app.css?url"
 import { seo } from "~/utils/seo"
+import { TonConnectUIProvider } from "@tonconnect/ui-react"
 
 export const Route = createRootRoute({
   meta: () => [
@@ -28,6 +29,7 @@ export const Route = createRootRoute({
       description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
     }),
   ],
+
   links: () => [
     { rel: "stylesheet", href: appCss },
     {
@@ -64,7 +66,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
-      <Outlet />
+      <TonConnectUIProvider manifestUrl="https://gist.githubusercontent.com/nikitavoloboev/3a20b9deaa0c12e84f662776177aad52/raw/da68c1ae363a5b940f2f92bf997011332460e835/manifest.json">
+        <Outlet />
+      </TonConnectUIProvider>
     </RootDocument>
   )
 }
@@ -95,7 +99,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           >
             New Airdrop for Claim
           </Link>{" "}
-          <Link
+          {/* TODO: activate back later to get it */}
+          {/* <Link
             to="/posts"
             activeProps={{
               className: "font-bold",
@@ -135,7 +140,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             }}
           >
             This Route Does Not Exist
-          </Link>
+          </Link> */}
         </div>
         <hr />
         {children}
