@@ -56,5 +56,5 @@ function RouteComponent() {
 }
 
 export const Route = createFileRoute("/claim-airdrop")({
-  component: () => RouteComponent,
+  component: () => <RouteComponent />,
 })

@@ -12,6 +12,9 @@ import { NotFound } from "~/components/NotFound"
 import appCss from "~/styles/app.css?url"
 import { seo } from "~/utils/seo"
 import { TonConnectUIProvider } from "@tonconnect/ui-react"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+
+const queryClient = new QueryClient()
 
 export const Route = createRootRoute({
   meta: () => [
@@ -65,9 +68,11 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
-      <TonConnectUIProvider manifestUrl="https://gist.githubusercontent.com/nikitavoloboev/3a20b9deaa0c12e84f662776177aad52/raw/da68c1ae363a5b940f2f92bf997011332460e835/manifest.json">
-        <Outlet />
-      </TonConnectUIProvider>
+      <QueryClientProvider client={queryClient}>
+        <TonConnectUIProvider manifestUrl="https://gist.githubusercontent.com/nikitavoloboev/3a20b9deaa0c12e84f662776177aad52/raw/da68c1ae363a5b940f2f92bf997011332460e835/manifest.json">
+          <Outlet />
+        </TonConnectUIProvider>
+      </QueryClientProvider>
     </RootDocument>
   )
 }
