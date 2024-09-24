@@ -1,27 +1,29 @@
 import { useForm } from "@tanstack/react-form"
-import { createFileRoute } from "@tanstack/react-router"
 import { Address } from "@ton/core"
 import { TonConnectButton } from "@tonconnect/ui-react"
 import { Trash2 } from "lucide-react"
 import { useEffect, useState } from "react"
-import { create } from "ronin"
 import airdropJson from "../../data/airdrop.json"
 import useBlockchainActions from "../lib/airdrop/useActions"
+import toast from "react-hot-toast"
+import { createFileRoute } from "@tanstack/react-router"
 
 const airDropAddress = Address.parse(
   "EQAgFwb4RShopfPqGPg2MjJEAKBcBsrPYQ7RSFlii8W_EpUz",
 )
-// TODO: how to fix import.meta.env type error
-// @ts-ignore
 const jettonAddress = Address.parse(import.meta.env.VITE_MASTER_ADDRESS)
 
-function RouteComponent() {
+export function RouteComponent() {
   const [inputPairs, setInputPairs] = useState<
     Array<{ id: number; wallet: string; amount: string }>
   >([])
   const { createAirdrop, sendJettonsToAirdrop } = useBlockchainActions()
   const [submittedAirdropWalletEntries, setSubmittedAirdropWalletEntries] =
     useState<{ userWallet: string; tokenAmount: string }[]>([])
+
+  const [parsedEntriesSubmitted, setParsedEntriesSubmitted] = useState<
+    { address: Address; amount: bigint }[]
+  >([])
 
   const form = useForm({
     defaultValues: {
@@ -30,27 +32,63 @@ function RouteComponent() {
       endDate: "",
     },
     onSubmit: async ({ value }) => {
-      setSubmittedAirdropWalletEntries(value.pairs)
-      const parsedEntries = value.pairs.map((entry) => ({
-        address: Address.parse(entry.userWallet),
-        amount: BigInt(entry.tokenAmount),
-      }))
-      console.log(parsedEntries, "parsed..")
-      const airdropAddress = await createAirdrop({
-        jettonAddress,
-        endTime: new Date(value.endDate).getTime() / 1000,
-        startTime: new Date(value.startTime).getTime() / 1000,
-        entries: parsedEntries,
-      })
-      console.log(airdropAddress.toString(), "address")
-
-      parsedEntries.forEach(async (entry, index) => {
-        await create.airdropWalletToClaim.with({
-          walletAddress: entry.address.toString(),
-          addressToClaim: airdropAddress.toString(),
-          number: index,
+      try {
+        setSubmittedAirdropWalletEntries(value.pairs)
+        const parsedEntries = value.pairs.map((entry) => ({
+          address: Address.parse(entry.userWallet),
+          amount: BigInt(entry.tokenAmount),
+        }))
+        console.log(parsedEntries, "parsed..")
+        const endTime = new Date(value.endDate).getTime() / 1000
+        const airdropAddress = await createAirdrop({
+          jettonAddress,
+          endTime,
+          startTime: new Date(value.startTime).getTime() / 1000,
+          entries: parsedEntries,
         })
-      })
+        setParsedEntriesSubmitted(parsedEntries)
+        parsedEntries.forEach(async (entry, index) => {
+          // waiting for 1 second for each entry to not spam server
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+          // TODO: will be nicer when tanstack start works with server actions..
+          await fetch(
+            "https://drophunt-production-0380.up.railway.app/create-airdrop-wallet-to-claim",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                walletAddress: entry.address.toString(),
+                addressToClaim: airdropAddress.toString(),
+                number: index,
+                validUntil: endTime,
+              }),
+            },
+          ).then((response) => {
+            if (!response.ok) {
+              throw new Error("Error creating airdrop wallet to claim")
+            }
+          })
+        })
+        toast.success("Airdrop created successfully")
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : "An unknown error occurred"
+
+        if (errorMessage === "Airdrop already deployed") {
+          toast.error(
+            "This airdrop with these entries has already been deployed.",
+            {
+              icon: "🚫",
+            },
+          )
+        } else {
+          toast.error(`Error creating airdrop: ${errorMessage}`, {
+            icon: "❌",
+          })
+        }
+      }
     },
   })
 
@@ -305,22 +343,21 @@ function RouteComponent() {
       <div className="mt-8 w-full">
         <button
           className={`w-full px-4 py-2 text-white rounded transition-colors ${
-            submittedAirdropWalletEntries.length > 0
+            parsedEntriesSubmitted.length > 0
               ? "bg-blue-500 hover:bg-blue-600"
               : "bg-gray-400 cursor-not-allowed"
           }`}
-          disabled={submittedAirdropWalletEntries.length === 0}
+          disabled={parsedEntriesSubmitted.length === 0}
           onClick={() => {
             if (!submittedAirdropWalletEntries) return
-            // TODO: some type error
-            // sendJettonsToAirdrop(
-            //   airDropAddress,
-            //   entriesAsProperAddresses.reduce((a, b) => ({
-            //     address: a.address,
-            //     amount: a.amount + b.amount,
-            //   })).amount,
-            //   jettonAddress
-            // )
+            sendJettonsToAirdrop(
+              airDropAddress,
+              parsedEntriesSubmitted.reduce((a, b) => ({
+                address: a.address,
+                amount: a.amount + b.amount,
+              })).amount,
+              jettonAddress,
+            )
           }}
         >
           Send Jettons to Airdrop

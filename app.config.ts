@@ -3,16 +3,23 @@ import tsConfigPaths from "vite-tsconfig-paths"
 import { nodePolyfills } from "vite-plugin-node-polyfills"
 
 export default defineConfig({
+  routers: {
+    client: {
+      vite: {
+        plugins: () => [
+          nodePolyfills({
+            globals: {
+              Buffer: true,
+            },
+          }),
+        ],
+      },
+    },
+  },
   vite: {
     plugins: () => [
       tsConfigPaths({
         projects: ["./tsconfig.json"],
-      }),
-      // TODO: breaks https://discord.com/channels/719702312431386674/1287699666598760509
-      nodePolyfills({
-        globals: {
-          Buffer: true,
-        },
       }),
     ],
   },
