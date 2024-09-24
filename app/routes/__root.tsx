@@ -12,9 +12,7 @@ import { NotFound } from "~/components/NotFound"
 import appCss from "~/styles/app.css?url"
 import { seo } from "~/utils/seo"
 import { TonConnectUIProvider } from "@tonconnect/ui-react"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-
-const queryClient = new QueryClient()
+import type { QueryClient } from "@tanstack/react-query"
 
 export const Route = createRootRoute({
   meta: () => [
@@ -68,11 +66,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
-      <QueryClientProvider client={queryClient}>
-        <TonConnectUIProvider manifestUrl="https://gist.githubusercontent.com/nikitavoloboev/3a20b9deaa0c12e84f662776177aad52/raw/da68c1ae363a5b940f2f92bf997011332460e835/manifest.json">
-          <Outlet />
-        </TonConnectUIProvider>
-      </QueryClientProvider>
+      <TonConnectUIProvider manifestUrl="https://gist.githubusercontent.com/nikitavoloboev/3a20b9deaa0c12e84f662776177aad52/raw/da68c1ae363a5b940f2f92bf997011332460e835/manifest.json">
+        <Outlet />
+      </TonConnectUIProvider>
     </RootDocument>
   )
 }
@@ -112,52 +108,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           >
             Claim Airdrop
           </Link>{" "}
-          {/* TODO: activate back later to get it */}
-          {/* <Link
-            to="/posts"
-            activeProps={{
-              className: "font-bold",
-            }}
-          >
-            Posts
-          </Link>{" "}
-          <Link
-            to="/users"
-            activeProps={{
-              className: "font-bold",
-            }}
-          >
-            Users
-          </Link>{" "}
-          <Link
-            to="/layout-a"
-            activeProps={{
-              className: "font-bold",
-            }}
-          >
-            Layout
-          </Link>{" "}
-          <Link
-            to="/deferred"
-            activeProps={{
-              className: "font-bold",
-            }}
-          >
-            Deferred
-          </Link>{" "}
-          <Link
-            // @ts-expect-error
-            to="/this-route-does-not-exist"
-            activeProps={{
-              className: "font-bold",
-            }}
-          >
-            This Route Does Not Exist
-          </Link> */}
         </div>
         <hr />
         {children}
         <ScrollRestoration />
+        {/* TODO: show only in dev */}
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </Body>
