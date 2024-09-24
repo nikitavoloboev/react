@@ -13,7 +13,7 @@ const airDropAddress = Address.parse(
 )
 const jettonAddress = Address.parse(import.meta.env.VITE_MASTER_ADDRESS)
 
-export function RouteComponent() {
+function RouteComponent() {
   const [inputPairs, setInputPairs] = useState<
     Array<{ id: number; wallet: string; amount: string }>
   >([])
@@ -52,7 +52,7 @@ export function RouteComponent() {
           await new Promise((resolve) => setTimeout(resolve, 1000))
           // TODO: will be nicer when tanstack start works with server actions..
           await fetch(
-            "https://drophunt-production-0380.up.railway.app/create-airdrop-wallet-to-claim",
+            `${import.meta.env.VITE_ENDPOINT_API}/create-airdrop-wallet-to-claim`,
             {
               method: "POST",
               headers: {

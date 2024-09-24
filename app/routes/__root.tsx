@@ -98,6 +98,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           >
             New Airdrop for Claim
           </Link>{" "}
+          <Link
+            to="/claim-airdrop"
+            activeProps={{
+              className: "font-bold",
+            }}
+            activeOptions={{ exact: true }}
+          >
+            Claim Airdrop
+          </Link>{" "}
           {/* TODO: activate back later to get it */}
           {/* <Link
             to="/posts"
