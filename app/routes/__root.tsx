@@ -1,20 +1,23 @@
+import type { QueryClient } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import {
   Link,
   Outlet,
   ScrollRestoration,
-  createRootRoute,
+  createRootRouteWithContext,
 } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/router-devtools"
 import { Body, Head, Html, Meta, Scripts } from "@tanstack/start"
+import { TonConnectUIProvider } from "@tonconnect/ui-react"
 import * as React from "react"
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary"
 import { NotFound } from "~/components/NotFound"
 import appCss from "~/styles/app.css?url"
 import { seo } from "~/utils/seo"
-import { TonConnectUIProvider } from "@tonconnect/ui-react"
-import type { QueryClient } from "@tanstack/react-query"
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient
+}>()({
   meta: () => [
     {
       charSet: "utf-8",
@@ -24,12 +27,10 @@ export const Route = createRootRoute({
       content: "width=device-width, initial-scale=1",
     },
     ...seo({
-      title:
-        "TanStack Start | Type-Safe, Client-First, Full-Stack React Framework",
-      description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
+      title: "React Test",
+      description: `TanStack Start and things`,
     }),
   ],
-
   links: () => [
     { rel: "stylesheet", href: appCss },
     {
@@ -114,6 +115,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         {/* TODO: show only in dev */}
         <TanStackRouterDevtools position="bottom-right" />
+        <ReactQueryDevtools buttonPosition="bottom-left" />
         <Scripts />
       </Body>
     </Html>
