@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UsersImport } from './routes/users'
+import { Route as TestFetchImport } from './routes/test-fetch'
 import { Route as RedirectImport } from './routes/redirect'
 import { Route as PostsImport } from './routes/posts'
 import { Route as NewAirdropForClaimImport } from './routes/new-airdrop-for-claim'
@@ -32,6 +33,11 @@ import { Route as LayoutLayout2LayoutAImport } from './routes/_layout/_layout-2/
 
 const UsersRoute = UsersImport.update({
   path: '/users',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TestFetchRoute = TestFetchImport.update({
+  path: '/test-fetch',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -163,6 +169,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RedirectImport
       parentRoute: typeof rootRoute
     }
+    '/test-fetch': {
+      id: '/test-fetch'
+      path: '/test-fetch'
+      fullPath: '/test-fetch'
+      preLoaderRoute: typeof TestFetchImport
+      parentRoute: typeof rootRoute
+    }
     '/users': {
       id: '/users'
       path: '/users'
@@ -288,6 +301,7 @@ export interface FileRoutesByFullPath {
   '/new-airdrop-for-claim': typeof NewAirdropForClaimRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
+  '/test-fetch': typeof TestFetchRoute
   '/users': typeof UsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
@@ -305,6 +319,7 @@ export interface FileRoutesByTo {
   '/deferred': typeof DeferredRoute
   '/new-airdrop-for-claim': typeof NewAirdropForClaimRoute
   '/redirect': typeof RedirectRoute
+  '/test-fetch': typeof TestFetchRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts': typeof PostsIndexRoute
@@ -323,6 +338,7 @@ export interface FileRoutesById {
   '/new-airdrop-for-claim': typeof NewAirdropForClaimRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
+  '/test-fetch': typeof TestFetchRoute
   '/users': typeof UsersRouteWithChildren
   '/_layout/_layout-2': typeof LayoutLayout2RouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
@@ -344,6 +360,7 @@ export interface FileRouteTypes {
     | '/new-airdrop-for-claim'
     | '/posts'
     | '/redirect'
+    | '/test-fetch'
     | '/users'
     | '/posts/$postId'
     | '/users/$userId'
@@ -360,6 +377,7 @@ export interface FileRouteTypes {
     | '/deferred'
     | '/new-airdrop-for-claim'
     | '/redirect'
+    | '/test-fetch'
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts'
@@ -376,6 +394,7 @@ export interface FileRouteTypes {
     | '/new-airdrop-for-claim'
     | '/posts'
     | '/redirect'
+    | '/test-fetch'
     | '/users'
     | '/_layout/_layout-2'
     | '/posts/$postId'
@@ -396,6 +415,7 @@ export interface RootRouteChildren {
   NewAirdropForClaimRoute: typeof NewAirdropForClaimRoute
   PostsRoute: typeof PostsRouteWithChildren
   RedirectRoute: typeof RedirectRoute
+  TestFetchRoute: typeof TestFetchRoute
   UsersRoute: typeof UsersRouteWithChildren
   PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
@@ -408,6 +428,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewAirdropForClaimRoute: NewAirdropForClaimRoute,
   PostsRoute: PostsRouteWithChildren,
   RedirectRoute: RedirectRoute,
+  TestFetchRoute: TestFetchRoute,
   UsersRoute: UsersRouteWithChildren,
   PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
@@ -431,6 +452,7 @@ export const routeTree = rootRoute
         "/new-airdrop-for-claim",
         "/posts",
         "/redirect",
+        "/test-fetch",
         "/users",
         "/posts/$postId/deep"
       ]
@@ -462,6 +484,9 @@ export const routeTree = rootRoute
     },
     "/redirect": {
       "filePath": "redirect.tsx"
+    },
+    "/test-fetch": {
+      "filePath": "test-fetch.tsx"
     },
     "/users": {
       "filePath": "users.tsx",

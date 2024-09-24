@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/start"
-import { create } from "ronin"
+import { batch, create, get, count } from "ronin"
 
 export const createAirdropWalletToClaim = createServerFn(
   "POST",
@@ -20,3 +20,14 @@ export const testAction = createServerFn(
     throw new Error("broke")
   },
 )
+
+export const getAirdrops = createServerFn("GET", async () => {
+  const [airdrops, userCount] = await batch(() => [
+    get.airdrops.orderedBy.ascending(["orderNumber"]),
+    count.users(),
+  ])
+  return {
+    airdrops,
+    userCount,
+  }
+})

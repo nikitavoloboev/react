@@ -111,6 +111,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           >
             Claim Airdrop
           </Link>{" "}
+          <Link
+            to="/test-fetch"
+            activeProps={{
+              className: "font-bold",
+            }}
+            activeOptions={{ exact: true }}
+          >
+            Test Fetch
+          </Link>{" "}
         </div>
         <hr />
         {children}

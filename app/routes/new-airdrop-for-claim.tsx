@@ -7,6 +7,7 @@ import airdropJson from "../../data/airdrop.json"
 import useBlockchainActions from "../lib/airdrop/useActions"
 import toast from "react-hot-toast"
 import { createFileRoute } from "@tanstack/react-router"
+import { createAirdropWalletToClaim } from "~/actions"
 
 const airDropAddress = Address.parse(
   "EQAgFwb4RShopfPqGPg2MjJEAKBcBsrPYQ7RSFlii8W_EpUz",
@@ -50,6 +51,11 @@ function RouteComponent() {
         parsedEntries.forEach(async (entry, index) => {
           // waiting for 1 second for each entry to not spam server
           await new Promise((resolve) => setTimeout(resolve, 1000))
+
+          // await createAirdropWalletToClaim({
+
+          // })
+
           // TODO: will be nicer when tanstack start works with server actions..
           await fetch(
             `${import.meta.env.VITE_ENDPOINT_API}/create-airdrop-wallet-to-claim`,

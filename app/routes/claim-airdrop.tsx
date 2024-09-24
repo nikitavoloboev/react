@@ -8,33 +8,33 @@ function RouteComponent() {
   const { claimAirdrop } = useBlockchainActions()
   const address = useTonAddress()
 
-  const { data, error, isLoading } = useSuspenseQuery({
-    queryKey: ["fetchAirdropData", address],
-    queryFn: () =>
-      fetch(
-        `${import.meta.env.VITE_ENDPOINT_API}/check-if-wallet-has-airdrops-to-claim`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            walletAddress: Address.parse(address).toString(),
-          }),
-        },
-      ).then((res) => {
-        if (!res.ok) {
-          throw new Error("Error fetching airdrop data")
-        }
-        return res.json()
-      }),
-  })
-  console.log(data, "data")
+  // const { data, error, isLoading } = useSuspenseQuery({
+  //   queryKey: ["fetchAirdropData", address],
+  //   queryFn: () =>
+  //     fetch(
+  //       `${import.meta.env.VITE_ENDPOINT_API}/check-if-wallet-has-airdrops-to-claim`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           walletAddress: Address.parse(address).toString(),
+  //         }),
+  //       },
+  //     ).then((res) => {
+  //       if (!res.ok) {
+  //         throw new Error("Error fetching airdrop data")
+  //       }
+  //       return res.json()
+  //     }),
+  // })
+  // console.log(data, "data")
 
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error loading airdrop data</div>
+  // if (isLoading) return <div>Loading...</div>
+  // if (error) return <div>Error loading airdrop data</div>
+  // const { airDropAddress, entries } = data
 
-  const { airDropAddress, entries } = data
   return (
     <>
       <div className="flex flex-col items-center w-full max-w-2xl mx-auto p-6 rounded-lg shadow-md">
