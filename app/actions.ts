@@ -1,19 +1,22 @@
 import { createServerFn } from "@tanstack/start"
 import { create } from "ronin"
 
-export const createAirdropWalletToClaim = createServerFn("POST", async () => {})
-
-export const testAction = createServerFn(
+export const createAirdropWalletToClaim = createServerFn(
   "POST",
   async (data: { walletAddress: string }) => {
     const { walletAddress } = data
-    // console.log(walletAddress, "wallet address")
-    // console.log(process.env.RONIN_TOKEN, "ronin token")
-    // const res = await create.airdropWalletToClaim.with({
-    //   walletAddress: "test",
-    // })
+    const res = await create.airdropWalletToClaim.with({
+      walletAddress,
+    })
+    console.log(res)
+  },
+)
+
+export const testAction = createServerFn(
+  "POST",
+  async (data: { something: string }) => {
+    const { something } = data
+    console.log(something, "something")
     throw new Error("broke")
-    // console.log(res)
-    // return true
   },
 )
