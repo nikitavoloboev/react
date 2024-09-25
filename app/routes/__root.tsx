@@ -28,8 +28,8 @@ export const Route = createRootRouteWithContext<{
       content: "width=device-width, initial-scale=1",
     },
     ...seo({
-      title: "React Test",
-      description: `TanStack Start and things`,
+      title: "React",
+      description: `React utils, TanStack Start and other code`,
     }),
   ],
   links: () => [
@@ -92,24 +92,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             activeOptions={{ exact: true }}
           >
             Home
-          </Link>{" "}
-          <Link
-            to="/new-airdrop-for-claim"
-            activeProps={{
-              className: "font-bold",
-            }}
-            activeOptions={{ exact: true }}
-          >
-            New Airdrop for Claim
-          </Link>{" "}
-          <Link
-            to="/claim-airdrop"
-            activeProps={{
-              className: "font-bold",
-            }}
-            activeOptions={{ exact: true }}
-          >
-            Claim Airdrop
           </Link>{" "}
           <Link
             to="/test-fetch"
