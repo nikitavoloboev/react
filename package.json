@@ -30,7 +30,6 @@
     "vite-plugin-node-polyfills": "^0.22.0"
   },
   "devDependencies": {
-    "@ronin/drophunt": "^0.0.0-3452215958202",
     "@types/node": "^22.5.4",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.21",
