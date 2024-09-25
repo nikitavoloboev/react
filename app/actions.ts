@@ -1,16 +1,4 @@
 import { createServerFn } from "@tanstack/start"
-import { batch, create, get, count } from "ronin"
-
-export const createAirdropWalletToClaim = createServerFn(
-  "POST",
-  async (data: { walletAddress: string }) => {
-    const { walletAddress } = data
-    const res = await create.airdropWalletToClaim.with({
-      walletAddress,
-    })
-    console.log(res)
-  },
-)
 
 export const testAction = createServerFn(
   "POST",
@@ -21,13 +9,9 @@ export const testAction = createServerFn(
   },
 )
 
-export const getAirdrops = createServerFn("GET", async () => {
-  const [airdrops, userCount] = await batch(() => [
-    get.airdrops.orderedBy.ascending(["orderNumber"]),
-    count.users(),
-  ])
+export const testFetch = createServerFn("GET", async () => {
   return {
-    airdrops,
-    userCount,
+    test: "test",
+    array: [1, 2, 3, 4, 5],
   }
 })

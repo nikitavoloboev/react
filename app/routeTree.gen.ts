@@ -15,9 +15,7 @@ import { Route as UsersImport } from './routes/users'
 import { Route as TestFetchImport } from './routes/test-fetch'
 import { Route as RedirectImport } from './routes/redirect'
 import { Route as PostsImport } from './routes/posts'
-import { Route as NewAirdropForClaimImport } from './routes/new-airdrop-for-claim'
 import { Route as DeferredImport } from './routes/deferred'
-import { Route as ClaimAirdropImport } from './routes/claim-airdrop'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as UsersIndexImport } from './routes/users.index'
@@ -51,18 +49,8 @@ const PostsRoute = PostsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const NewAirdropForClaimRoute = NewAirdropForClaimImport.update({
-  path: '/new-airdrop-for-claim',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const DeferredRoute = DeferredImport.update({
   path: '/deferred',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ClaimAirdropRoute = ClaimAirdropImport.update({
-  path: '/claim-airdrop',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -134,25 +122,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
-    '/claim-airdrop': {
-      id: '/claim-airdrop'
-      path: '/claim-airdrop'
-      fullPath: '/claim-airdrop'
-      preLoaderRoute: typeof ClaimAirdropImport
-      parentRoute: typeof rootRoute
-    }
     '/deferred': {
       id: '/deferred'
       path: '/deferred'
       fullPath: '/deferred'
       preLoaderRoute: typeof DeferredImport
-      parentRoute: typeof rootRoute
-    }
-    '/new-airdrop-for-claim': {
-      id: '/new-airdrop-for-claim'
-      path: '/new-airdrop-for-claim'
-      fullPath: '/new-airdrop-for-claim'
-      preLoaderRoute: typeof NewAirdropForClaimImport
       parentRoute: typeof rootRoute
     }
     '/posts': {
@@ -296,9 +270,7 @@ const UsersRouteWithChildren = UsersRoute._addFileChildren(UsersRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof LayoutLayout2RouteWithChildren
-  '/claim-airdrop': typeof ClaimAirdropRoute
   '/deferred': typeof DeferredRoute
-  '/new-airdrop-for-claim': typeof NewAirdropForClaimRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
   '/test-fetch': typeof TestFetchRoute
@@ -315,9 +287,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof LayoutLayout2RouteWithChildren
-  '/claim-airdrop': typeof ClaimAirdropRoute
   '/deferred': typeof DeferredRoute
-  '/new-airdrop-for-claim': typeof NewAirdropForClaimRoute
   '/redirect': typeof RedirectRoute
   '/test-fetch': typeof TestFetchRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -333,9 +303,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_layout': typeof LayoutRouteWithChildren
-  '/claim-airdrop': typeof ClaimAirdropRoute
   '/deferred': typeof DeferredRoute
-  '/new-airdrop-for-claim': typeof NewAirdropForClaimRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
   '/test-fetch': typeof TestFetchRoute
@@ -355,9 +323,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
-    | '/claim-airdrop'
     | '/deferred'
-    | '/new-airdrop-for-claim'
     | '/posts'
     | '/redirect'
     | '/test-fetch'
@@ -373,9 +339,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
-    | '/claim-airdrop'
     | '/deferred'
-    | '/new-airdrop-for-claim'
     | '/redirect'
     | '/test-fetch'
     | '/posts/$postId'
@@ -389,9 +353,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_layout'
-    | '/claim-airdrop'
     | '/deferred'
-    | '/new-airdrop-for-claim'
     | '/posts'
     | '/redirect'
     | '/test-fetch'
@@ -410,9 +372,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LayoutRoute: typeof LayoutRouteWithChildren
-  ClaimAirdropRoute: typeof ClaimAirdropRoute
   DeferredRoute: typeof DeferredRoute
-  NewAirdropForClaimRoute: typeof NewAirdropForClaimRoute
   PostsRoute: typeof PostsRouteWithChildren
   RedirectRoute: typeof RedirectRoute
   TestFetchRoute: typeof TestFetchRoute
@@ -423,9 +383,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LayoutRoute: LayoutRouteWithChildren,
-  ClaimAirdropRoute: ClaimAirdropRoute,
   DeferredRoute: DeferredRoute,
-  NewAirdropForClaimRoute: NewAirdropForClaimRoute,
   PostsRoute: PostsRouteWithChildren,
   RedirectRoute: RedirectRoute,
   TestFetchRoute: TestFetchRoute,
@@ -447,9 +405,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_layout",
-        "/claim-airdrop",
         "/deferred",
-        "/new-airdrop-for-claim",
         "/posts",
         "/redirect",
         "/test-fetch",
@@ -466,14 +422,8 @@ export const routeTree = rootRoute
         "/_layout/_layout-2"
       ]
     },
-    "/claim-airdrop": {
-      "filePath": "claim-airdrop.tsx"
-    },
     "/deferred": {
       "filePath": "deferred.tsx"
-    },
-    "/new-airdrop-for-claim": {
-      "filePath": "new-airdrop-for-claim.tsx"
     },
     "/posts": {
       "filePath": "posts.tsx",
