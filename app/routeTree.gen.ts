@@ -12,9 +12,10 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UsersImport } from './routes/users'
-import { Route as TestFetchImport } from './routes/test-fetch'
 import { Route as RedirectImport } from './routes/redirect'
 import { Route as PostsImport } from './routes/posts'
+import { Route as FormImport } from './routes/form'
+import { Route as FetchImport } from './routes/fetch'
 import { Route as DeferredImport } from './routes/deferred'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
@@ -34,11 +35,6 @@ const UsersRoute = UsersImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const TestFetchRoute = TestFetchImport.update({
-  path: '/test-fetch',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const RedirectRoute = RedirectImport.update({
   path: '/redirect',
   getParentRoute: () => rootRoute,
@@ -46,6 +42,16 @@ const RedirectRoute = RedirectImport.update({
 
 const PostsRoute = PostsImport.update({
   path: '/posts',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FormRoute = FormImport.update({
+  path: '/form',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FetchRoute = FetchImport.update({
+  path: '/fetch',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -129,6 +135,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DeferredImport
       parentRoute: typeof rootRoute
     }
+    '/fetch': {
+      id: '/fetch'
+      path: '/fetch'
+      fullPath: '/fetch'
+      preLoaderRoute: typeof FetchImport
+      parentRoute: typeof rootRoute
+    }
+    '/form': {
+      id: '/form'
+      path: '/form'
+      fullPath: '/form'
+      preLoaderRoute: typeof FormImport
+      parentRoute: typeof rootRoute
+    }
     '/posts': {
       id: '/posts'
       path: '/posts'
@@ -141,13 +161,6 @@ declare module '@tanstack/react-router' {
       path: '/redirect'
       fullPath: '/redirect'
       preLoaderRoute: typeof RedirectImport
-      parentRoute: typeof rootRoute
-    }
-    '/test-fetch': {
-      id: '/test-fetch'
-      path: '/test-fetch'
-      fullPath: '/test-fetch'
-      preLoaderRoute: typeof TestFetchImport
       parentRoute: typeof rootRoute
     }
     '/users': {
@@ -271,9 +284,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof LayoutLayout2RouteWithChildren
   '/deferred': typeof DeferredRoute
+  '/fetch': typeof FetchRoute
+  '/form': typeof FormRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
-  '/test-fetch': typeof TestFetchRoute
   '/users': typeof UsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
@@ -288,8 +302,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof LayoutLayout2RouteWithChildren
   '/deferred': typeof DeferredRoute
+  '/fetch': typeof FetchRoute
+  '/form': typeof FormRoute
   '/redirect': typeof RedirectRoute
-  '/test-fetch': typeof TestFetchRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts': typeof PostsIndexRoute
@@ -304,9 +319,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/deferred': typeof DeferredRoute
+  '/fetch': typeof FetchRoute
+  '/form': typeof FormRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
-  '/test-fetch': typeof TestFetchRoute
   '/users': typeof UsersRouteWithChildren
   '/_layout/_layout-2': typeof LayoutLayout2RouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
@@ -324,9 +340,10 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/deferred'
+    | '/fetch'
+    | '/form'
     | '/posts'
     | '/redirect'
-    | '/test-fetch'
     | '/users'
     | '/posts/$postId'
     | '/users/$userId'
@@ -340,8 +357,9 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/deferred'
+    | '/fetch'
+    | '/form'
     | '/redirect'
-    | '/test-fetch'
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts'
@@ -354,9 +372,10 @@ export interface FileRouteTypes {
     | '/'
     | '/_layout'
     | '/deferred'
+    | '/fetch'
+    | '/form'
     | '/posts'
     | '/redirect'
-    | '/test-fetch'
     | '/users'
     | '/_layout/_layout-2'
     | '/posts/$postId'
@@ -373,9 +392,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LayoutRoute: typeof LayoutRouteWithChildren
   DeferredRoute: typeof DeferredRoute
+  FetchRoute: typeof FetchRoute
+  FormRoute: typeof FormRoute
   PostsRoute: typeof PostsRouteWithChildren
   RedirectRoute: typeof RedirectRoute
-  TestFetchRoute: typeof TestFetchRoute
   UsersRoute: typeof UsersRouteWithChildren
   PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
@@ -384,9 +404,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LayoutRoute: LayoutRouteWithChildren,
   DeferredRoute: DeferredRoute,
+  FetchRoute: FetchRoute,
+  FormRoute: FormRoute,
   PostsRoute: PostsRouteWithChildren,
   RedirectRoute: RedirectRoute,
-  TestFetchRoute: TestFetchRoute,
   UsersRoute: UsersRouteWithChildren,
   PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
@@ -406,9 +427,10 @@ export const routeTree = rootRoute
         "/",
         "/_layout",
         "/deferred",
+        "/fetch",
+        "/form",
         "/posts",
         "/redirect",
-        "/test-fetch",
         "/users",
         "/posts/$postId/deep"
       ]
@@ -425,6 +447,12 @@ export const routeTree = rootRoute
     "/deferred": {
       "filePath": "deferred.tsx"
     },
+    "/fetch": {
+      "filePath": "fetch.tsx"
+    },
+    "/form": {
+      "filePath": "form.tsx"
+    },
     "/posts": {
       "filePath": "posts.tsx",
       "children": [
@@ -434,9 +462,6 @@ export const routeTree = rootRoute
     },
     "/redirect": {
       "filePath": "redirect.tsx"
-    },
-    "/test-fetch": {
-      "filePath": "test-fetch.tsx"
     },
     "/users": {
       "filePath": "users.tsx",

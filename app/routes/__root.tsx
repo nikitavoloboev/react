@@ -92,15 +92,26 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             activeOptions={{ exact: true }}
           >
             Home
-          </Link>{" "}
+          </Link>
+          {" | "}
           <Link
-            to="/test-fetch"
+            to="/fetch"
             activeProps={{
               className: "font-bold",
             }}
             activeOptions={{ exact: true }}
           >
-            Test Fetch
+            Fetch
+          </Link>
+          {" | "}
+          <Link
+            to="/form"
+            activeProps={{
+              className: "font-bold",
+            }}
+            activeOptions={{ exact: true }}
+          >
+            Form
           </Link>{" "}
         </div>
         <hr />

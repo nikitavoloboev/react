@@ -22,6 +22,6 @@ function RouteComponent() {
   )
 }
 
-export const Route = createFileRoute("/test-fetch")({
+export const Route = createFileRoute("/fetch")({
   component: () => <RouteComponent />,
 })
