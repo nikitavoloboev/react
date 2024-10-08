@@ -18,6 +18,7 @@ import { Route as GlobalDataImport } from './routes/global-data'
 import { Route as FormImport } from './routes/form'
 import { Route as FetchImport } from './routes/fetch'
 import { Route as DeferredImport } from './routes/deferred'
+import { Route as BugsImport } from './routes/bugs'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as UsersIndexImport } from './routes/users.index'
@@ -63,6 +64,11 @@ const FetchRoute = FetchImport.update({
 
 const DeferredRoute = DeferredImport.update({
   path: '/deferred',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BugsRoute = BugsImport.update({
+  path: '/bugs',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -132,6 +138,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/bugs': {
+      id: '/bugs'
+      path: '/bugs'
+      fullPath: '/bugs'
+      preLoaderRoute: typeof BugsImport
       parentRoute: typeof rootRoute
     }
     '/deferred': {
@@ -296,6 +309,7 @@ const UsersRouteWithChildren = UsersRoute._addFileChildren(UsersRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof LayoutLayout2RouteWithChildren
+  '/bugs': typeof BugsRoute
   '/deferred': typeof DeferredRoute
   '/fetch': typeof FetchRoute
   '/form': typeof FormRoute
@@ -315,6 +329,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof LayoutLayout2RouteWithChildren
+  '/bugs': typeof BugsRoute
   '/deferred': typeof DeferredRoute
   '/fetch': typeof FetchRoute
   '/form': typeof FormRoute
@@ -333,6 +348,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_layout': typeof LayoutRouteWithChildren
+  '/bugs': typeof BugsRoute
   '/deferred': typeof DeferredRoute
   '/fetch': typeof FetchRoute
   '/form': typeof FormRoute
@@ -355,6 +371,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
+    | '/bugs'
     | '/deferred'
     | '/fetch'
     | '/form'
@@ -373,6 +390,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
+    | '/bugs'
     | '/deferred'
     | '/fetch'
     | '/form'
@@ -389,6 +407,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_layout'
+    | '/bugs'
     | '/deferred'
     | '/fetch'
     | '/form'
@@ -410,6 +429,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LayoutRoute: typeof LayoutRouteWithChildren
+  BugsRoute: typeof BugsRoute
   DeferredRoute: typeof DeferredRoute
   FetchRoute: typeof FetchRoute
   FormRoute: typeof FormRoute
@@ -423,6 +443,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LayoutRoute: LayoutRouteWithChildren,
+  BugsRoute: BugsRoute,
   DeferredRoute: DeferredRoute,
   FetchRoute: FetchRoute,
   FormRoute: FormRoute,
@@ -447,6 +468,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_layout",
+        "/bugs",
         "/deferred",
         "/fetch",
         "/form",
@@ -465,6 +487,9 @@ export const routeTree = rootRoute
       "children": [
         "/_layout/_layout-2"
       ]
+    },
+    "/bugs": {
+      "filePath": "bugs.tsx"
     },
     "/deferred": {
       "filePath": "deferred.tsx"

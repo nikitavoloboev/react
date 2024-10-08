@@ -68,7 +68,7 @@ export const Route = createRootRouteWithContext<{
 })
 
 const isSSR = typeof window === "undefined"
-export const useProxy = isSSR ? (p: any) => p : useProxyOrig
+export const useProxy = isSSR ? <T,>(p: T) => p : useProxyOrig
 export const globalState = proxy({
   name: "nikiv",
 })
@@ -97,6 +97,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             activeOptions={{ exact: true }}
           >
             Home
+          </Link>
+          {" | "}
+          <Link
+            to="/bugs"
+            activeProps={{
+              className: "font-bold",
+            }}
+            activeOptions={{ exact: true }}
+          >
+            Bugs
           </Link>
           {" | "}
           <Link
