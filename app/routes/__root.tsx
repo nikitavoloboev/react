@@ -12,6 +12,7 @@ import { TonConnectUIProvider } from "@tonconnect/ui-react"
 import * as React from "react"
 import { Toaster } from "react-hot-toast"
 import { proxy } from "valtio"
+import { useProxy as useProxyOrig } from "valtio/utils"
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary"
 import { NotFound } from "~/components/NotFound"
 import appCss from "~/styles/app.css?url"
@@ -66,10 +67,11 @@ export const Route = createRootRouteWithContext<{
   component: RootComponent,
 })
 
+const isSSR = typeof window === "undefined"
+export const useProxy = isSSR ? (p: any) => p : useProxyOrig
 export const globalState = proxy({
   name: "nikiv",
 })
-
 function RootComponent() {
   return (
     <RootDocument>

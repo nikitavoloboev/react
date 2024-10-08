@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { useProxy } from "valtio/utils"
-import { globalState } from "./__root"
+import { globalState, useProxy } from "./__root"
 
 function RouteComponent() {
   const global = useProxy(globalState)
