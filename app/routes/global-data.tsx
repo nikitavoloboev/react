@@ -4,11 +4,7 @@ import { globalState } from "./__root"
 
 function RouteComponent() {
   const global = useProxy(globalState)
-  return (
-    <>
-      <div>{global.name}</div>
-    </>
-  )
+  return <div>{global.name}</div>
 }
 
 export const Route = createFileRoute("/global-data")({
