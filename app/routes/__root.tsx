@@ -11,6 +11,7 @@ import { Body, Head, Html, Meta, Scripts } from "@tanstack/start"
 import { TonConnectUIProvider } from "@tonconnect/ui-react"
 import * as React from "react"
 import { Toaster } from "react-hot-toast"
+import { proxy } from "valtio"
 import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary"
 import { NotFound } from "~/components/NotFound"
 import appCss from "~/styles/app.css?url"
@@ -65,12 +66,14 @@ export const Route = createRootRouteWithContext<{
   component: RootComponent,
 })
 
+export const globalState = proxy({
+  name: "nikiv",
+})
+
 function RootComponent() {
   return (
     <RootDocument>
-      <TonConnectUIProvider manifestUrl="https://gist.githubusercontent.com/nikitavoloboev/3a20b9deaa0c12e84f662776177aad52/raw/da68c1ae363a5b940f2f92bf997011332460e835/manifest.json">
-        <Outlet />
-      </TonConnectUIProvider>
+      <Outlet />
       <Toaster />
     </RootDocument>
   )

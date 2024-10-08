@@ -1,17 +1,23 @@
-import { createFileRoute, rootRouteId } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import toast from "react-hot-toast"
-import { testAction } from "~/actions"
-import { proxy } from "valtio"
 import { useProxy } from "valtio/utils"
-
-export const rootRouteState = proxy({
-  name: "nikiv",
-})
+import { testAction } from "~/actions"
+import { globalState } from "./__root"
 
 function RouteComponent() {
-  const rootRouteState = useProxy(rootRouteState)
+  const global = useProxy(globalState)
+
   return (
     <>
+      <button
+        onClick={() => {
+          global.name = "nikivi new name"
+        }}
+      >
+        Change Global State
+      </button>
+      <div>{global.name}</div>
+      <hr className="my-4 border-gray-300" />
       <button
         onClick={async () => {
           try {
