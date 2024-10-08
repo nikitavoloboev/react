@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as UsersImport } from './routes/users'
 import { Route as RedirectImport } from './routes/redirect'
 import { Route as PostsImport } from './routes/posts'
+import { Route as GlobalDataImport } from './routes/global-data'
 import { Route as FormImport } from './routes/form'
 import { Route as FetchImport } from './routes/fetch'
 import { Route as DeferredImport } from './routes/deferred'
@@ -42,6 +43,11 @@ const RedirectRoute = RedirectImport.update({
 
 const PostsRoute = PostsImport.update({
   path: '/posts',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GlobalDataRoute = GlobalDataImport.update({
+  path: '/global-data',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -147,6 +153,13 @@ declare module '@tanstack/react-router' {
       path: '/form'
       fullPath: '/form'
       preLoaderRoute: typeof FormImport
+      parentRoute: typeof rootRoute
+    }
+    '/global-data': {
+      id: '/global-data'
+      path: '/global-data'
+      fullPath: '/global-data'
+      preLoaderRoute: typeof GlobalDataImport
       parentRoute: typeof rootRoute
     }
     '/posts': {
@@ -286,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/deferred': typeof DeferredRoute
   '/fetch': typeof FetchRoute
   '/form': typeof FormRoute
+  '/global-data': typeof GlobalDataRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
   '/users': typeof UsersRouteWithChildren
@@ -304,6 +318,7 @@ export interface FileRoutesByTo {
   '/deferred': typeof DeferredRoute
   '/fetch': typeof FetchRoute
   '/form': typeof FormRoute
+  '/global-data': typeof GlobalDataRoute
   '/redirect': typeof RedirectRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
@@ -321,6 +336,7 @@ export interface FileRoutesById {
   '/deferred': typeof DeferredRoute
   '/fetch': typeof FetchRoute
   '/form': typeof FormRoute
+  '/global-data': typeof GlobalDataRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
   '/users': typeof UsersRouteWithChildren
@@ -342,6 +358,7 @@ export interface FileRouteTypes {
     | '/deferred'
     | '/fetch'
     | '/form'
+    | '/global-data'
     | '/posts'
     | '/redirect'
     | '/users'
@@ -359,6 +376,7 @@ export interface FileRouteTypes {
     | '/deferred'
     | '/fetch'
     | '/form'
+    | '/global-data'
     | '/redirect'
     | '/posts/$postId'
     | '/users/$userId'
@@ -374,6 +392,7 @@ export interface FileRouteTypes {
     | '/deferred'
     | '/fetch'
     | '/form'
+    | '/global-data'
     | '/posts'
     | '/redirect'
     | '/users'
@@ -394,6 +413,7 @@ export interface RootRouteChildren {
   DeferredRoute: typeof DeferredRoute
   FetchRoute: typeof FetchRoute
   FormRoute: typeof FormRoute
+  GlobalDataRoute: typeof GlobalDataRoute
   PostsRoute: typeof PostsRouteWithChildren
   RedirectRoute: typeof RedirectRoute
   UsersRoute: typeof UsersRouteWithChildren
@@ -406,6 +426,7 @@ const rootRouteChildren: RootRouteChildren = {
   DeferredRoute: DeferredRoute,
   FetchRoute: FetchRoute,
   FormRoute: FormRoute,
+  GlobalDataRoute: GlobalDataRoute,
   PostsRoute: PostsRouteWithChildren,
   RedirectRoute: RedirectRoute,
   UsersRoute: UsersRouteWithChildren,
@@ -429,6 +450,7 @@ export const routeTree = rootRoute
         "/deferred",
         "/fetch",
         "/form",
+        "/global-data",
         "/posts",
         "/redirect",
         "/users",
@@ -452,6 +474,9 @@ export const routeTree = rootRoute
     },
     "/form": {
       "filePath": "form.tsx"
+    },
+    "/global-data": {
+      "filePath": "global-data.tsx"
     },
     "/posts": {
       "filePath": "posts.tsx",

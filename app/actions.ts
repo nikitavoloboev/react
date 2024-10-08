@@ -5,7 +5,8 @@ export const testAction = createServerFn(
   async (data: { something: string }) => {
     const { something } = data
     console.log(something, "something")
-    throw new Error("broke")
+    return "ok"
+    // throw new Error("broke")
   },
 )
 

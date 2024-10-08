@@ -1,8 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, rootRouteId } from "@tanstack/react-router"
 import toast from "react-hot-toast"
 import { testAction } from "~/actions"
+import { proxy } from "valtio"
+import { useProxy } from "valtio/utils"
+
+export const rootRouteState = proxy({
+  name: "nikiv",
+})
 
 function RouteComponent() {
+  const rootRouteState = useProxy(rootRouteState)
   return (
     <>
       <button

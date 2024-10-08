@@ -113,6 +113,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           >
             Form
           </Link>{" "}
+          {" | "}
+          <Link
+            to="/global-data"
+            activeProps={{
+              className: "font-bold",
+            }}
+            activeOptions={{ exact: true }}
+          >
+            Global Data
+          </Link>{" "}
         </div>
         <hr />
         {children}

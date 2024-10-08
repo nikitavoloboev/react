@@ -26,6 +26,7 @@
     "redaxios": "^0.5.1",
     "ronin": "^4.3.1",
     "tailwind-merge": "^2.5.2",
+    "valtio": "^2.0.0",
     "vinxi": "0.4.3",
     "vite-plugin-node-polyfills": "^0.22.0"
   },
