@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as UsersImport } from './routes/users'
+import { Route as RefetchImport } from './routes/refetch'
 import { Route as RedirectImport } from './routes/redirect'
 import { Route as PostsImport } from './routes/posts'
 import { Route as GlobalDataImport } from './routes/global-data'
@@ -34,6 +35,11 @@ import { Route as LayoutLayout2LayoutAImport } from './routes/_layout/_layout-2/
 
 const UsersRoute = UsersImport.update({
   path: '/users',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RefetchRoute = RefetchImport.update({
+  path: '/refetch',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -189,6 +195,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RedirectImport
       parentRoute: typeof rootRoute
     }
+    '/refetch': {
+      id: '/refetch'
+      path: '/refetch'
+      fullPath: '/refetch'
+      preLoaderRoute: typeof RefetchImport
+      parentRoute: typeof rootRoute
+    }
     '/users': {
       id: '/users'
       path: '/users'
@@ -316,6 +329,7 @@ export interface FileRoutesByFullPath {
   '/global-data': typeof GlobalDataRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
+  '/refetch': typeof RefetchRoute
   '/users': typeof UsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
@@ -335,6 +349,7 @@ export interface FileRoutesByTo {
   '/form': typeof FormRoute
   '/global-data': typeof GlobalDataRoute
   '/redirect': typeof RedirectRoute
+  '/refetch': typeof RefetchRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts': typeof PostsIndexRoute
@@ -355,6 +370,7 @@ export interface FileRoutesById {
   '/global-data': typeof GlobalDataRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
+  '/refetch': typeof RefetchRoute
   '/users': typeof UsersRouteWithChildren
   '/_layout/_layout-2': typeof LayoutLayout2RouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
@@ -378,6 +394,7 @@ export interface FileRouteTypes {
     | '/global-data'
     | '/posts'
     | '/redirect'
+    | '/refetch'
     | '/users'
     | '/posts/$postId'
     | '/users/$userId'
@@ -396,6 +413,7 @@ export interface FileRouteTypes {
     | '/form'
     | '/global-data'
     | '/redirect'
+    | '/refetch'
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts'
@@ -414,6 +432,7 @@ export interface FileRouteTypes {
     | '/global-data'
     | '/posts'
     | '/redirect'
+    | '/refetch'
     | '/users'
     | '/_layout/_layout-2'
     | '/posts/$postId'
@@ -436,6 +455,7 @@ export interface RootRouteChildren {
   GlobalDataRoute: typeof GlobalDataRoute
   PostsRoute: typeof PostsRouteWithChildren
   RedirectRoute: typeof RedirectRoute
+  RefetchRoute: typeof RefetchRoute
   UsersRoute: typeof UsersRouteWithChildren
   PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
@@ -450,6 +470,7 @@ const rootRouteChildren: RootRouteChildren = {
   GlobalDataRoute: GlobalDataRoute,
   PostsRoute: PostsRouteWithChildren,
   RedirectRoute: RedirectRoute,
+  RefetchRoute: RefetchRoute,
   UsersRoute: UsersRouteWithChildren,
   PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
@@ -475,6 +496,7 @@ export const routeTree = rootRoute
         "/global-data",
         "/posts",
         "/redirect",
+        "/refetch",
         "/users",
         "/posts/$postId/deep"
       ]
@@ -512,6 +534,9 @@ export const routeTree = rootRoute
     },
     "/redirect": {
       "filePath": "redirect.tsx"
+    },
+    "/refetch": {
+      "filePath": "refetch.tsx"
     },
     "/users": {
       "filePath": "users.tsx",

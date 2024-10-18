@@ -1,12 +1,12 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { testFetch } from "~/actions"
+import { fetchAction } from "~/actions"
 
 function RouteComponent() {
   const { data, error, isLoading } = useSuspenseQuery({
-    queryKey: ["test-fetch"],
+    queryKey: ["fetch"],
     queryFn: async () => {
-      const res = await testFetch()
+      const res = await fetchAction()
       return res
     },
   })
@@ -16,7 +16,7 @@ function RouteComponent() {
   if (error) return <div>Error loading data</div>
   return (
     <>
-      <div>{data.test}</div>
+      <div>{data.state}</div>
       <div>{data.array.join(", ")}</div>
     </>
   )

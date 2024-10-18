@@ -10,9 +10,17 @@ export const testAction = createServerFn(
   },
 )
 
-export const testFetch = createServerFn("GET", async () => {
+export const fetchAction = createServerFn("GET", async () => {
   return {
-    test: "test",
+    state: "test-state",
+    array: [1, 2, 3, 4, 5],
+    time: new Date().toISOString(),
+  }
+})
+
+export const refetchAction = createServerFn("GET", async () => {
+  return {
+    state: "new-state",
     array: [1, 2, 3, 4, 5],
   }
 })
