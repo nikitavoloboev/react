@@ -79,6 +79,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <ScrollRestoration />
+        {/* TODO: only show in dev mode */}
+        {/* TODO: also allow hiding on/off from ui, persist the setting across reloads maybe */}
+        {/* <TanStackRouterDevtools position="bottom-right" />
+        <ReactQueryDevtools buttonPosition="bottom-left" /> */}
         <Scripts />
       </body>
     </html>
