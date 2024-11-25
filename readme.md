@@ -1,5 +1,5 @@
 # React
 
-Using [TanStack Start](https://tanstack.com/start/latest).
+See [web](web) for how to run [TanStack Start](https://tanstack.com/start/latest) website.
 
-See [web](web).
+Repo is used to test React / TanStack Start things.
